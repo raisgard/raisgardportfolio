@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bolaji Olawale Ajibola | Portfolio</title>
+  <style>
+:root {
+  --bg: #0b1220;
+  --card: #111827;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --accent: #38bdf8;
+}
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  background: linear-gradient(180deg, #020617, #020617);
+  color: var(--text);
+  line-height: 1.7;
+}
+header {
+  background: radial-gradient(circle at top, #0f172a, #020617);
+  padding: 4rem 1.5rem;
+  text-align: center;
+}
+header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+header p {
+  color: var(--muted);
+}
+header a {
+  color: var(--accent);
+  text-decoration: none;
+  margin: 0 0.5rem;
+}
+section {
+  max-width: 1100px;
+  margin: auto;
+  padding: 4rem 1.5rem;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease;
+}
+section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+h2 {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  border-left: 4px solid var(--accent);
+  padding-left: 1rem;
+}
+h3 {
+  color: var(--accent);
+  margin-top: 3rem;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+.card, .cardd {
+  background: var(--card);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  transition: transform 0.3s ease, opacity 0.6s ease;
+}
+.card:hover, .cardd:hover {
+  transform: translateY(-6px);
+}
+.card img, .cardd img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+.card-content {
+  padding: 1.5rem;
+}
+.card-content a {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #020617;
+  font-size: 0.9rem;
+  text-decoration: none;
+  font-weight: 600;
+}
+.card-content a:hover {
+  opacity: 0.85;
+}
+ul {
+  padding-left: 1.2rem;
+  color: var(--muted);
+}
+footer {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: #020617;
+  color: var(--muted);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  header h1 { font-size: 2rem; }
+  section { padding: 3rem 1rem; }
+  h2 { font-size: 1.6rem; }
+}
+@media (max-width: 768px) {
+  .grid { grid-template-columns: 1fr; }
+  .card img, .cardd img { width: 100%; height: auto; }
+  .card-content a { font-size: 0.85rem; padding: 0.45rem 0.9rem; }
+}
+@media (max-width: 480px) {
+  header { padding: 2.5rem 1rem; }
+  header h1 { font-size: 1.7rem; }
+  header p { font-size: 0.9rem; }
+  .card-content { padding: 1rem; }
+}
+
+/* ===== MOBILE FIXES (SAFE) ===== */
+
+/* Stack header contact info on mobile */
+@media (max-width: 768px) {
+  header p {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    align-items: center;
+  }
+
+  header p img {
+    vertical-align: middle;
+  }
+}
+
+/* Ensure all cards have padding (even without images) */
+.card > h4,
+.card > ul {
+  padding: 1.5rem;
+}
+
+/* Improve readability on very small screens */
+@media (max-width: 480px) {
+  body {
+    font-size: 0.95rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+  }
+
+  .card h4 {
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-content a {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* ===== HEADER ANIMATION ===== */
+
+header {
+  animation: headerFadeIn 1.2s ease-out forwards;
+}
+
+header h1 {
+  opacity: 0;
+  animation: slideUp 0.8s ease-out forwards;
+  animation-delay: 0.3s;
+}
+
+header p:nth-of-type(1) {
+  opacity: 0;
+  animation: slideUp 0.8s ease-out forwards;
+  animation-delay: 0.6s;
+}
+
+header p:nth-of-type(2) {
+  opacity: 0;
+  animation: slideUp 0.8s ease-out forwards;
+  animation-delay: 0.9s;
+}
+
+/* Animations */
+@keyframes headerFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== NAME GLOW PULSE ===== */
+header h1 {
+  position: relative;
+  animation: slideUp 0.8s ease-out forwards, glowPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes glowPulse {
+  0% {
+    text-shadow: 0 0 5px var(--accent), 0 0 10px var(--accent);
+  }
+  50% {
+    text-shadow: 0 0 12px var(--accent), 0 0 24px var(--accent);
+  }
+  100% {
+    text-shadow: 0 0 5px var(--accent), 0 0 10px var(--accent);
+  }
+}
+
+
+</style>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const sections = document.querySelectorAll('section');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.15 });
+      sections.forEach(section => observer.observe(section));
+    });
+  </script>
+</head>
+<body>
+
+<header>
+  <h1>Bolaji Olawale Ajibola</h1>
+  <p>Web Developer | Graphic Designer | Data Entry Specialist | Virtual Assistant| Data Annotator </p>
+  <p>
+    <img src="images/email.png" width="30"/><a href="mailto:borlarhjhi@gmail.com">borlarhjhi@gmail.com</a> |
+    <img src="images/whatsapp.png" width="30"/> <a href="https://wa.link/uyn1c2">Whatsapp</a> |
+    <img src="images/linked.png" width="30"/> <a href="https://www.linkedin.com/in/raisgard/" target="_blank">LinkedIn</a>
+  </p>
+</header>
+
+<section>
+  <h2>About Me</h2>
+  <p>
+    My name is Bolaji Olawale Ajibola. I am a multi-disciplinary digital professional with over 6 years of experience helping businesses thrive through web development, graphic design, data annotation, and operational support. 
+    My expertise lies in building high-trust digital platforms, visually compelling brands, and high-quality datasets that support data-driven and AI-powered solutions. 
+    Whether I am developing a responsive website, designing a brand identity, annotating and validating structured or unstructured data, or managing complex datasets, my focus remains the same: precision, usability, and results. 
+    I bridge the gap between creative vision, technical execution, and data accuracy, providing a seamless all-in-one solution for clients looking to scale their digital, analytical, and operational footprint.
+
+  </p>
+</section>
+
+<section>
+  <h2>Projects</h2>
+
+  <h3>Web Development</h3>
+  <div class="grid">
+    <div class="card">
+      <img src="images/leblokk.png" alt="Restaurant Management Platform">
+      <div class="card-content">
+        <h4>Restaurant Management Platform</h4>
+        <p> I built frontend features for the public restaurant website, booking system, and administration dashboard using React and Next.js.</p>
+        <a href="https://www.leblokkmarrakech.com/" target="_blank">View Live Project</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="images/agencytech.png" alt="IT Consulting Firm">
+      <div class="card-content">
+        <h4>Website design & build for an IT consulting firm</h4>
+        <p> A fast, professional website for an IT consulting firm, designed to showcase their services and case studies to potential clients</p>
+        <a href="https://agencytech.co.uk/" target="_blank">View Live Project</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="images/doublegrace.png" alt="In-Home Assistance Portal">
+      <div class="card-content">
+        <h4>In-Home Assistance Portal</h4>
+        <p>A professional service-based platform built to connect families with high-quality home care solutions. Focused on UX and lead generation.</p>
+        <a href="https://doublegracehomecare.com/" target="_blank">View Live Project</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="images/meltcrumb.png" alt="Bakery website">
+      <div class="card-content">
+        <h4>Bakery Website</h4>
+        <p> Melt & Crumb is a bakery website built with a warm, cartoon-inspired visual style. The project focused on translating a fun brand personality into a clean web experience: product presentation, ordering context, and a tone that matches the treats on offer.</p>
+        <a href="https://meltncrumb.vercel.app/" target="_blank">View Live Project</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="images/appleeye2.png" alt="Healthcare Service Platform">
+      <div class="card-content">
+        <h4>Healthcare Service Platform</h4>
+        <p>A trust-centered website developed for a premium home care provider, emphasizing intuitive navigation and accessibility.</p>
+        <a href="https://aehomecarevip.com/" target="_blank">View Live Project</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="images/adiohome.png" alt="Clinical Home Healthcare Website">
+      <div class="card-content">
+        <h4>Clinical Home Healthcare Website</h4>
+        <p>Comprehensive service-based website for a medical-grade home health agency, optimized for lead generation and user-friendly navigation.</p>
+        <a href="https://adiohomehealth.com/" target="_blank">View Live Project</a>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:2rem;">Graphic Design</h3>
+  <div class="grid">
+    <div class="card">
+      <img src="images/futuristic.png" alt="Brand Identity & Logo Design">
+      <div class="card-content">
+        <h4>Brand Identity & Logo Design</h4>
+        <p>Professional logo and branding assets designed to strengthen brand recognition across digital platforms.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="images/golden.jpg" alt="Marketing Materials Design">
+      <div class="card-content">
+        <h4>Marketing Materials</h4>
+        <p>High-impact brochures, flyers, and social media creatives designed for multiple industries.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="images/neon.jpg" alt="Image Manipulation & Photo Editing">
+      <div class="card-content">
+        <h4>Neon Light- Image Manipulation</h4>
+      </div>
+    </div>
+    <div class="card">
+      <img src="images/rainbow.png" alt="Event Invitation & Promotional Flyer">
+      <div class="card-content">
+        <h4>Event Invitation & Promotional Flyer</h4>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:2rem;">Data & Virtual Assistance</h3>
+  <div class="grid">
+    <div class="card">
+      <div class="card-content">
+        <h4>Data Management & Reporting</h4>
+        <p>I specialize in organizing complex datasets and managing CRM systems to deliver clear, actionable reports that empower businesses to make data-driven decisions.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-content">
+        <h4>Virtual Assistance Support</h4>
+        <p>I provide strategic administrative support through professional communication, precise scheduling, and workflow optimization to help businesses run efficiently and reclaim valuable time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="data-annotator" class="fade-in">
+  <h2>Data Annotator</h2>
+  <p>
+    Detail-oriented Data Annotator with hands-on experience supporting machine learning
+    and AI projects through high-quality data labeling and validation. I deliver accurate,
+    consistent annotations that improve model performance across text, image, and
+    structured datasets.
+  </p>
+
+  <div class="grid">
+    <div class="card">
+      <h4>Annotation Expertise</h4>
+      <ul>
+        <li>Text classification & sentiment analysis</li>
+        <li>Image labeling & bounding boxes</li>
+        <li>Data categorization & tagging</li>
+        <li>Quality assurance & validation</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h4>Tools & Platforms</h4>
+      <ul>
+        <li>Labelbox, CVAT, Supervisely</li>
+        <li>Excel & Google Sheets</li>
+        <li>AI-assisted annotation workflows</li>
+        <li>Dataset documentation & reporting</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h4>Key Strengths</h4>
+      <ul>
+        <li>High attention to detail</li>
+        <li>Consistency across large datasets</li>
+        <li>Fast turnaround with accuracy</li>
+        <li>Clear communication with ML teams</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<section>
+  <h2>Skills & Tools</h2>
+<ul>
+  <li><strong>Data Annotation & AI Support:</strong> Text classification, sentiment analysis, entity recognition, image labeling, bounding boxes, data tagging, dataset validation, quality assurance</li>
+
+  <li><strong>Machine Learning Data Preparation:</strong> Data cleaning, normalization, structured & unstructured datasets, annotation consistency, bias awareness, guideline adherence</li>
+
+  <li><strong>Annotation & AI Tools:</strong> Labelbox, CVAT, Supervisely, spreadsheet-based annotation workflows, AI-assisted labeling systems</li>
+
+  <li><strong>Data Handling & Analysis:</strong> Advanced Excel, Google Sheets, SQL fundamentals, reporting, data auditing, CRM data management</li>
+
+  <li><strong>Technical & Web Skills:</strong> HTML, CSS, JavaScript, WordPress, PHP, React (foundational), responsive UI development</li>
+
+  <li><strong>Design & Visual QA:</strong> Adobe Photoshop, Illustrator, InDesign, Canva — visual accuracy review for datasets and interfaces</li>
+
+  <li><strong>Professional Strengths:</strong> Extreme attention to detail, high-volume consistency, documentation, deadline-driven delivery, cross-functional communication</li>
+</ul>
+
+</section>
+
+<section>
+<h2>Why Work With Me</h2>
+<div class="grid">
+<div class="card">
+<div class="card-content">
+<h4>Proven Experience</h4>
+<p>Over 6 years of hands-on experience delivering websites, designs, and digital support that meet real business needs.</p>
+</div>
+</div>
+<div class="card">
+<div class="card-content">
+<h4>Quality & Attention to Detail</h4>
+<p>I focus on clean design, accuracy, and functionality to ensure every project looks professional and works flawlessly.</p>
+</div>
+</div>
+<div class="card">
+<div class="card-content">
+<h4>Clear Communication</h4>
+<p>You get timely updates, clear explanations, and a smooth collaboration from start to finish.</p>
+</div>
+</div>
+<div class="card">
+<div class="card-content">
+<h4>Reliable & Deadline-Focused</h4>
+<p>I respect timelines and deliver projects on schedule without compromising quality.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section>
+  <h2>Testimonials</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="card-content">
+        <p>“Bolaji delivered an excellent website ahead of schedule. Communication was clear, and the final result exceeded expectations.”</p>
+        <strong>— Client, Small Business Owner</strong>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-content">
+        <p>“Very professional and detail-oriented. The designs were clean, modern, and perfectly aligned with our brand.”</p>
+        <strong>— Marketing Manager</strong>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-content">
+        <p>“Reliable virtual assistant with strong organizational skills. Tasks were handled efficiently and without supervision.”</p>
+        <strong>— Remote Client</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Certifications</h2>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-content">
+        <h4>Responsive Web Design</h4>
+        <p><strong>FreeCodeCamp</strong></p>
+        <p>
+          Solid foundation in HTML, CSS, accessibility standards, and mobile-first
+          responsive layouts.
+        </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-content">
+        <h4>Google Data Analytics Certificate</h4>
+        <p><strong>Google</strong></p>
+        <p>
+          Data cleaning, analysis, visualization, reporting, and SQL fundamentals
+          for business and AI use cases.
+        </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-content">
+        <h4>Adobe Certified Graphic Designer</h4>
+        <p><strong>Adobe</strong></p>
+        <p>
+          Professional design workflows using Photoshop, Illustrator,
+          and InDesign for digital and print media.
+        </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-content">
+        <h4>Career Essentials in Generative AI</h4>
+        <p><strong>Microsoft & LinkedIn Learning</strong></p>
+        <p>
+          Practical understanding of AI tools, automation, prompt usage,
+          and productivity enhancement.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section>
+  <h2>Contact</h2>
+  <div><img src="images/email.png" width="30"/> Email: <a href="mailto:borlarhjhi@gmail.com">borlarhjhi@gmail.com</a></div>
+  <div><img src="images/whatsapp.png" width="30"/><a href="https://wa.link/uyn1c2">Whatsapp</a></div>
+  <div><img src="images/linked.png" width="30"/> <a href="https://www.linkedin.com/in/raisgard/" target="_blank">LinkedIn Profile</a> </div>
+</section>
+
+<footer>
+  <p>© 2025 Bolaji Olawale Ajibola. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
