@@ -1,0 +1,17 @@
+{
+  "name": "raisgard-portfolio",
+  "version": "1.0.0",
+  "description": "Portfolio website for Bolaji Olawale Ajibola",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'Static site - no build needed'",
+    "start": "npx serve ."
+  },
+  "keywords": ["portfolio", "web-development", "graphic-design"],
+  "author": "Bolaji Olawale Ajibola",
+  "license": "MIT",
+  "dependencies": {
+    "@vercel/analytics": "^1.4.1"
+  }
+}
