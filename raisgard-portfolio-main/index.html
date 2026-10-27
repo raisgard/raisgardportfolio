@@ -194,6 +194,68 @@ header p:nth-of-type(2) {
   animation-delay: 0.9s;
 }
 
+/* ===== PROFILE IMAGE ===== */
+.profile-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: profileFadeIn 1s ease-out forwards;
+  animation-delay: 0.1s;
+}
+
+.profile-img {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--accent);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.5), 0 0 40px rgba(56, 189, 248, 0.2);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  animation: profilePulse 3s ease-in-out infinite;
+}
+
+.profile-img:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.8), 0 0 60px rgba(56, 189, 248, 0.3);
+}
+
+@keyframes profileFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes profilePulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.5), 0 0 40px rgba(56, 189, 248, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 28px rgba(56, 189, 248, 0.7), 0 0 50px rgba(56, 189, 248, 0.35);
+  }
+}
+
+/* Responsive sizing */
+@media (max-width: 768px) {
+  .profile-img {
+    width: 130px;
+    height: 130px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-img {
+    width: 110px;
+    height: 110px;
+    border-width: 3px;
+  }
+}
+
 @keyframes headerFadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -225,6 +287,9 @@ header p:nth-of-type(2) {
 <body>
 
 <header>
+  <div class="profile-wrapper">
+    <img src="images/profile.jpg" alt="Bolaji Olawale Ajibola" class="profile-img" loading="eager">
+  </div>
   <h1>Bolaji Olawale Ajibola</h1>
   <p>Web Developer | Graphic Designer | Data Entry Specialist | Virtual Assistant| Data Annotator </p>
   <p>
