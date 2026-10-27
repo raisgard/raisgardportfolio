@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Bolaji Olawale Ajibola | Portfolio</title>
   <style>
 :root {
@@ -12,6 +12,16 @@
   --muted: #9ca3af;
   --accent: #38bdf8;
 }
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
@@ -19,13 +29,21 @@ body {
   color: var(--text);
   line-height: 1.7;
 }
+
+/* GLOBAL IMAGE FIX — ensures ALL images (header icons + project images) scale properly on every screen size */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
 header {
   background: radial-gradient(circle at top, #0f172a, #020617);
   padding: 4rem 1.5rem;
   text-align: center;
 }
 header h1 {
-  font-size: 2.5rem;
+  font-size: clamp(1.6rem, 5vw, 2.5rem);
   margin-bottom: 0.5rem;
 }
 header p {
@@ -36,6 +54,22 @@ header a {
   text-decoration: none;
   margin: 0 0.5rem;
 }
+
+/* Header contact row – flex-wrap so icons/links never overflow on mobile */
+header p {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+header p img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
 section {
   max-width: 1100px;
   margin: auto;
@@ -43,13 +77,14 @@ section {
   opacity: 0;
   transform: translateY(40px);
   transition: all 0.8s ease;
+  width: 100%;
 }
 section.visible {
   opacity: 1;
   transform: translateY(0);
 }
 h2 {
-  font-size: 1.8rem;
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
   margin-bottom: 2rem;
   border-left: 4px solid var(--accent);
   padding-left: 1rem;
@@ -58,27 +93,34 @@ h3 {
   color: var(--accent);
   margin-top: 3rem;
 }
+
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
   gap: 2rem;
 }
+
 .card, .cardd {
   background: var(--card);
   border-radius: 14px;
   overflow: hidden;
   box-shadow: 0 20px 40px rgba(0,0,0,0.4);
   transition: transform 0.3s ease, opacity 0.6s ease;
+  width: 100%;
 }
 .card:hover, .cardd:hover {
   transform: translateY(-6px);
 }
+
 .card img, .cardd img {
   width: 100%;
   height: auto;
+  aspect-ratio: 16 / 10;
   object-fit: cover;
   display: block;
+  background-color: #1e293b; /* placeholder color while loading */
 }
+
 .card-content {
   padding: 1.5rem;
 }
@@ -107,136 +149,64 @@ footer {
   color: var(--muted);
 }
 
-/* Responsive adjustments */
-@media (max-width: 1024px) {
-  header h1 { font-size: 2rem; }
-  section { padding: 3rem 1rem; }
-  h2 { font-size: 1.6rem; }
-}
-@media (max-width: 768px) {
-  .grid { grid-template-columns: 1fr; }
-  .card img, .cardd img { width: 100%; height: auto; }
-  .card-content a { font-size: 0.85rem; padding: 0.45rem 0.9rem; }
-}
-@media (max-width: 480px) {
-  header { padding: 2.5rem 1rem; }
-  header h1 { font-size: 1.7rem; }
-  header p { font-size: 0.9rem; }
-  .card-content { padding: 1rem; }
-}
-
-/* ===== MOBILE FIXES (SAFE) ===== */
-
-/* Stack header contact info on mobile */
-@media (max-width: 768px) {
-  header p {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-    align-items: center;
-  }
-
-  header p img {
-    vertical-align: middle;
-  }
-}
-
 /* Ensure all cards have padding (even without images) */
 .card > h4,
 .card > ul {
   padding: 1.5rem;
 }
 
-/* Improve readability on very small screens */
-@media (max-width: 480px) {
-  body {
-    font-size: 0.95rem;
-  }
-
-  h2 {
-    font-size: 1.4rem;
-  }
-
-  h3 {
-    font-size: 1.15rem;
-  }
-
-  .card h4 {
-    font-size: 1.05rem;
-  }
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  section { padding: 3rem 1rem; }
 }
-
+@media (max-width: 768px) {
+  .grid { grid-template-columns: 1fr; }
+  .card-content a { font-size: 0.85rem; padding: 0.45rem 0.9rem; }
+}
 @media (max-width: 480px) {
-  .card-content a {
-    width: 100%;
-    text-align: center;
-  }
+  header { padding: 2.5rem 1rem; }
+  header p { font-size: 0.85rem; }
+  .card-content { padding: 1rem; }
+  body { font-size: 0.95rem; }
+  h3 { font-size: 1.15rem; }
+  .card h4 { font-size: 1.05rem; }
+  .card-content a { width: 100%; text-align: center; }
 }
 
 /* ===== HEADER ANIMATION ===== */
-
 header {
   animation: headerFadeIn 1.2s ease-out forwards;
 }
-
 header h1 {
   opacity: 0;
-  animation: slideUp 0.8s ease-out forwards;
+  animation: slideUp 0.8s ease-out forwards, glowPulse 2s ease-in-out infinite alternate;
   animation-delay: 0.3s;
+  position: relative;
 }
-
 header p:nth-of-type(1) {
   opacity: 0;
   animation: slideUp 0.8s ease-out forwards;
   animation-delay: 0.6s;
 }
-
 header p:nth-of-type(2) {
   opacity: 0;
   animation: slideUp 0.8s ease-out forwards;
   animation-delay: 0.9s;
 }
 
-/* Animations */
 @keyframes headerFadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
-
 @keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(25px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-
-/* ===== NAME GLOW PULSE ===== */
-header h1 {
-  position: relative;
-  animation: slideUp 0.8s ease-out forwards, glowPulse 2s ease-in-out infinite alternate;
-}
-
 @keyframes glowPulse {
-  0% {
-    text-shadow: 0 0 5px var(--accent), 0 0 10px var(--accent);
-  }
-  50% {
-    text-shadow: 0 0 12px var(--accent), 0 0 24px var(--accent);
-  }
-  100% {
-    text-shadow: 0 0 5px var(--accent), 0 0 10px var(--accent);
-  }
+  0% { text-shadow: 0 0 5px var(--accent), 0 0 10px var(--accent); }
+  50% { text-shadow: 0 0 12px var(--accent), 0 0 24px var(--accent); }
+  100% { text-shadow: 0 0 5px var(--accent), 0 0 10px var(--accent); }
 }
-
-
 </style>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -247,7 +217,7 @@ header h1 {
             entry.target.classList.add('visible');
           }
         });
-      }, { threshold: 0.15 });
+      }, { threshold: 0.1 });
       sections.forEach(section => observer.observe(section));
     });
   </script>
@@ -258,9 +228,9 @@ header h1 {
   <h1>Bolaji Olawale Ajibola</h1>
   <p>Web Developer | Graphic Designer | Data Entry Specialist | Virtual Assistant| Data Annotator </p>
   <p>
-    <img src="images/email.png" width="30"/><a href="mailto:borlarhjhi@gmail.com">borlarhjhi@gmail.com</a> |
-    <img src="images/whatsapp.png" width="30"/> <a href="https://wa.link/uyn1c2">Whatsapp</a> |
-    <img src="images/linked.png" width="30"/> <a href="https://www.linkedin.com/in/raisgard/" target="_blank">LinkedIn</a>
+    <img src="images/email.png" alt="Email icon" loading="lazy"/><a href="mailto:borlarhjhi@gmail.com">borlarhjhi@gmail.com</a> |
+    <img src="images/whatsapp.png" alt="WhatsApp icon" loading="lazy"/> <a href="https://wa.link/uyn1c2">Whatsapp</a> |
+    <img src="images/linked.png" alt="LinkedIn icon" loading="lazy"/> <a href="https://www.linkedin.com/in/raisgard/" target="_blank">LinkedIn</a>
   </p>
 </header>
 
@@ -271,7 +241,6 @@ header h1 {
     My expertise lies in building high-trust digital platforms, visually compelling brands, and high-quality datasets that support data-driven and AI-powered solutions. 
     Whether I am developing a responsive website, designing a brand identity, annotating and validating structured or unstructured data, or managing complex datasets, my focus remains the same: precision, usability, and results. 
     I bridge the gap between creative vision, technical execution, and data accuracy, providing a seamless all-in-one solution for clients looking to scale their digital, analytical, and operational footprint.
-
   </p>
 </section>
 
@@ -281,7 +250,7 @@ header h1 {
   <h3>Web Development</h3>
   <div class="grid">
     <div class="card">
-      <img src="images/leblokk.png" alt="Restaurant Management Platform">
+      <img src="images/leblokk.png" alt="Restaurant Management Platform" loading="lazy">
       <div class="card-content">
         <h4>Restaurant Management Platform</h4>
         <p> I built frontend features for the public restaurant website, booking system, and administration dashboard using React and Next.js.</p>
@@ -289,7 +258,7 @@ header h1 {
       </div>
     </div>
     <div class="card">
-      <img src="images/agencytech.png" alt="IT Consulting Firm">
+      <img src="images/agencytech.png" alt="IT Consulting Firm" loading="lazy">
       <div class="card-content">
         <h4>Website design & build for an IT consulting firm</h4>
         <p> A fast, professional website for an IT consulting firm, designed to showcase their services and case studies to potential clients</p>
@@ -297,7 +266,7 @@ header h1 {
       </div>
     </div>
     <div class="card">
-      <img src="images/doublegrace.png" alt="In-Home Assistance Portal">
+      <img src="images/doublegrace.png" alt="In-Home Assistance Portal" loading="lazy">
       <div class="card-content">
         <h4>In-Home Assistance Portal</h4>
         <p>A professional service-based platform built to connect families with high-quality home care solutions. Focused on UX and lead generation.</p>
@@ -305,7 +274,7 @@ header h1 {
       </div>
     </div>
     <div class="card">
-      <img src="images/meltcrumb.png" alt="Bakery website">
+      <img src="images/meltcrumb.png" alt="Bakery website" loading="lazy">
       <div class="card-content">
         <h4>Bakery Website</h4>
         <p> Melt & Crumb is a bakery website built with a warm, cartoon-inspired visual style. The project focused on translating a fun brand personality into a clean web experience</p>
@@ -313,7 +282,7 @@ header h1 {
       </div>
     </div>
     <div class="card">
-      <img src="images/appleeye2.png" alt="Healthcare Service Platform">
+      <img src="images/appleeye2.png" alt="Healthcare Service Platform" loading="lazy">
       <div class="card-content">
         <h4>Healthcare Service Platform</h4>
         <p>A trust-centered website developed for a premium home care provider, emphasizing intuitive navigation and accessibility.</p>
@@ -321,7 +290,7 @@ header h1 {
       </div>
     </div>
     <div class="card">
-      <img src="images/adiohome.png" alt="Clinical Home Healthcare Website">
+      <img src="images/adiohome.png" alt="Clinical Home Healthcare Website" loading="lazy">
       <div class="card-content">
         <h4>Clinical Home Healthcare Website</h4>
         <p>Comprehensive service-based website for a medical-grade home health agency, optimized for lead generation and user-friendly navigation.</p>
@@ -333,27 +302,27 @@ header h1 {
   <h3 style="margin-top:2rem;">Graphic Design</h3>
   <div class="grid">
     <div class="card">
-      <img src="images/futuristic.png" alt="Brand Identity & Logo Design">
+      <img src="images/futuristic.png" alt="Brand Identity & Logo Design" loading="lazy">
       <div class="card-content">
         <h4>Brand Identity & Logo Design</h4>
         <p>Professional logo and branding assets designed to strengthen brand recognition across digital platforms.</p>
       </div>
     </div>
     <div class="card">
-      <img src="images/golden.jpg" alt="Marketing Materials Design">
+      <img src="images/golden.jpg" alt="Marketing Materials Design" loading="lazy">
       <div class="card-content">
         <h4>Marketing Materials</h4>
         <p>High-impact brochures, flyers, and social media creatives designed for multiple industries.</p>
       </div>
     </div>
     <div class="card">
-      <img src="images/neon.jpg" alt="Image Manipulation & Photo Editing">
+      <img src="images/neon.jpg" alt="Image Manipulation & Photo Editing" loading="lazy">
       <div class="card-content">
         <h4>Neon Light- Image Manipulation</h4>
       </div>
     </div>
     <div class="card">
-      <img src="images/rainbow.png" alt="Event Invitation & Promotional Flyer">
+      <img src="images/rainbow.png" alt="Event Invitation & Promotional Flyer" loading="lazy">
       <div class="card-content">
         <h4>Event Invitation & Promotional Flyer</h4>
       </div>
@@ -419,25 +388,17 @@ header h1 {
   </div>
 </section>
 
-
 <section>
   <h2>Skills & Tools</h2>
 <ul>
   <li><strong>Data Annotation & AI Support:</strong> Text classification, sentiment analysis, entity recognition, image labeling, bounding boxes, data tagging, dataset validation, quality assurance</li>
-
   <li><strong>Machine Learning Data Preparation:</strong> Data cleaning, normalization, structured & unstructured datasets, annotation consistency, bias awareness, guideline adherence</li>
-
   <li><strong>Annotation & AI Tools:</strong> Labelbox, CVAT, Supervisely, spreadsheet-based annotation workflows, AI-assisted labeling systems</li>
-
   <li><strong>Data Handling & Analysis:</strong> Advanced Excel, Google Sheets, SQL fundamentals, reporting, data auditing, CRM data management</li>
-
   <li><strong>Technical & Web Skills:</strong> HTML, CSS, JavaScript, WordPress, PHP, React (foundational), responsive UI development</li>
-
   <li><strong>Design & Visual QA:</strong> Adobe Photoshop, Illustrator, InDesign, Canva — visual accuracy review for datasets and interfaces</li>
-
   <li><strong>Professional Strengths:</strong> Extreme attention to detail, high-volume consistency, documentation, deadline-driven delivery, cross-functional communication</li>
 </ul>
-
 </section>
 
 <section>
@@ -475,19 +436,19 @@ header h1 {
   <div class="grid">
     <div class="card">
       <div class="card-content">
-        <p>“Bolaji delivered an excellent website ahead of schedule. Communication was clear, and the final result exceeded expectations.”</p>
+        <p>"Bolaji delivered an excellent website ahead of schedule. Communication was clear, and the final result exceeded expectations."</p>
         <strong>— Client, Small Business Owner</strong>
       </div>
     </div>
     <div class="card">
       <div class="card-content">
-        <p>“Very professional and detail-oriented. The designs were clean, modern, and perfectly aligned with our brand.”</p>
+        <p>"Very professional and detail-oriented. The designs were clean, modern, and perfectly aligned with our brand."</p>
         <strong>— Marketing Manager</strong>
       </div>
     </div>
     <div class="card">
       <div class="card-content">
-        <p>“Reliable virtual assistant with strong organizational skills. Tasks were handled efficiently and without supervision.”</p>
+        <p>"Reliable virtual assistant with strong organizational skills. Tasks were handled efficiently and without supervision."</p>
         <strong>— Remote Client</strong>
       </div>
     </div>
@@ -496,60 +457,43 @@ header h1 {
 
 <section>
   <h2>Certifications</h2>
-
   <div class="grid">
     <div class="card">
       <div class="card-content">
         <h4>Responsive Web Design</h4>
         <p><strong>FreeCodeCamp</strong></p>
-        <p>
-          Solid foundation in HTML, CSS, accessibility standards, and mobile-first
-          responsive layouts.
-        </p>
+        <p>Solid foundation in HTML, CSS, accessibility standards, and mobile-first responsive layouts.</p>
       </div>
     </div>
-
     <div class="card">
       <div class="card-content">
         <h4>Google Data Analytics Certificate</h4>
         <p><strong>Google</strong></p>
-        <p>
-          Data cleaning, analysis, visualization, reporting, and SQL fundamentals
-          for business and AI use cases.
-        </p>
+        <p>Data cleaning, analysis, visualization, reporting, and SQL fundamentals for business and AI use cases.</p>
       </div>
     </div>
-
     <div class="card">
       <div class="card-content">
         <h4>Adobe Certified Graphic Designer</h4>
         <p><strong>Adobe</strong></p>
-        <p>
-          Professional design workflows using Photoshop, Illustrator,
-          and InDesign for digital and print media.
-        </p>
+        <p>Professional design workflows using Photoshop, Illustrator, and InDesign for digital and print media.</p>
       </div>
     </div>
-
     <div class="card">
       <div class="card-content">
         <h4>Career Essentials in Generative AI</h4>
         <p><strong>Microsoft & LinkedIn Learning</strong></p>
-        <p>
-          Practical understanding of AI tools, automation, prompt usage,
-          and productivity enhancement.
-        </p>
+        <p>Practical understanding of AI tools, automation, prompt usage, and productivity enhancement.</p>
       </div>
     </div>
   </div>
 </section>
 
-
 <section>
   <h2>Contact</h2>
-  <div><img src="images/email.png" width="30"/> Email: <a href="mailto:borlarhjhi@gmail.com">borlarhjhi@gmail.com</a></div>
-  <div><img src="images/whatsapp.png" width="30"/><a href="https://wa.link/uyn1c2">Whatsapp</a></div>
-  <div><img src="images/linked.png" width="30"/> <a href="https://www.linkedin.com/in/raisgard/" target="_blank">LinkedIn Profile</a> </div>
+  <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.8rem;"><img src="images/email.png" alt="Email" style="width:24px;height:24px;"/> Email: <a href="mailto:borlarhjhi@gmail.com">borlarhjhi@gmail.com</a></div>
+  <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.8rem;"><img src="images/whatsapp.png" alt="WhatsApp" style="width:24px;height:24px;"/><a href="https://wa.link/uyn1c2">Whatsapp</a></div>
+  <div style="display:flex;align-items:center;gap:0.5rem;"><img src="images/linked.png" alt="LinkedIn" style="width:24px;height:24px;"/> <a href="https://www.linkedin.com/in/raisgard/" target="_blank">LinkedIn Profile</a></div>
 </section>
 
 <footer>
